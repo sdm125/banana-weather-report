@@ -11,7 +11,7 @@ html, body {
   height: 100%;
   text-align: center;
   min-width: 290px;
-  /*overflow: hidden;*/
+  overflow: hidden;
 }
 
 body {
@@ -81,7 +81,7 @@ body {
 
 @media only screen and (max-width: 450px) {
   #banana {
-    top: 50px;
+    top: 75px;
   }
 
   #bubble {
@@ -173,6 +173,10 @@ body {
   text-decoration: underline;
 }
 
+.daily-weather {
+  width: 12%;
+}
+
 @media only screen and (max-width: 767px) {
   .wi {
     font-size: 1.5rem;
@@ -190,6 +194,10 @@ body {
 }
 
 @media only screen and (max-width: 500px) {
+
+  .daily-weather {
+    width: 19.5%;
+  }
 
   #weeklyWeather .daily-weather:last-child{
     display: none;

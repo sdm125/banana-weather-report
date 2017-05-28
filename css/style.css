@@ -5,6 +5,7 @@ html, body {
   height: 100%;
   text-align: center;
   min-width: 290px;
+  overflow: hidden;
 }
 
 body {

@@ -77,7 +77,7 @@ body {
 
 @media only screen and (max-width: 450px) {
   #banana {
-    top: 115px;
+    top: 125px;
   }
 
   #bubble {
@@ -95,7 +95,7 @@ body {
   }
 
   #banana {
-    top: 125px;
+    top: 100px;
     left: 40px;
   }
 

@@ -2,9 +2,9 @@ $(document).ready(function(){
 
   (function(){
 
-    var weekdays = ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun'];
+    var weekdays = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
     var currentDate = new Date();
-    var formattedDate = weekdays[currentDate.getDay() - 1] + ' ' + currentDate.getDate() + ' ' + currentDate.getFullYear();
+    var formattedDate = weekdays[currentDate.getDay()] + ' ' + currentDate.getDate() + ' ' + currentDate.getFullYear();
     var coords = {};
     var weather = {currentTemp: 0,
                    daily: {max: 0, min: 0},

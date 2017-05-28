@@ -1,21 +1,25 @@
 html, body {
+  background:
+  linear-gradient(135deg, #aa80ff 30%, transparent 10%) -50px 0,
+  linear-gradient(225deg, #aa80ff 30%, transparent 10%) -50px 0,
+  linear-gradient(315deg, #aa80ff 30%, transparent 10%),
+  linear-gradient(45deg, #aa80ff 30%, transparent 10%);
+  background-size: 20px 10px;
   background-color: #bb99ff;
   font-family: 'Indie Flower', cursive;
   margin: 0;
   height: 100%;
   text-align: center;
   min-width: 290px;
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 
 body {
   border: 15px solid yellow;
 }
 
-.container-fluid {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.container {
+  height: 100%;
 }
 
 .btn-primary {
@@ -49,13 +53,12 @@ body {
 
 #banana {
   position: relative;
-  max-height: 350px;
   width: 100%;
-  max-width: 220px;
-  float: left;
-  transform: rotate(-25deg);
-  top: 80px;
-  left: 72px
+  max-width: 200px;
+  float: right;
+  transform: rotate(-15deg);
+  top: 30px;
+  left: 40px
 }
 
 #title {
@@ -65,10 +68,11 @@ body {
 #bubble {
 	position: relative;
   right: 35px;
-  width: 120%;
+  width: 100%;
+  max-width: 250px;
 	background: yellow;
 	border-radius: .4em;
-  font-size: .9rem;
+  font-size: 1.1rem;
   font-weight: bold;
   float: left;
   padding: 10px;
@@ -77,7 +81,7 @@ body {
 
 @media only screen and (max-width: 450px) {
   #banana {
-    top: 130px;
+    top: 50px;
   }
 
   #bubble {
@@ -138,4 +142,65 @@ body {
 
 .wi {
   font-size: 2rem;
+}
+
+/***** Weekly *****/
+
+#weeklyWeather {
+  display: flex;
+  justify-content: space-around;
+  max-width: 700px;
+  width: 100%;
+  margin: auto;
+}
+
+#weeklyWeather div {
+  background-color: yellow;
+  border-radius: 5px;
+  margin: 10px 0;
+  border: 2px solid;
+  padding: 0 5px;
+  transition: all .2s ease-in-out;
+}
+
+#weeklyWeather div:hover {
+  background-color: #aa80ff;
+  color: #fff;
+  cursor: pointer;
+}
+
+#weeklyWeather div strong {
+  text-decoration: underline;
+}
+
+@media only screen and (max-width: 767px) {
+  .wi {
+    font-size: 1.5rem;
+  }
+
+  .temp-label {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 570px) {
+  header h1 {
+    font-size: 6vw;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+
+  #weeklyWeather .daily-weather:last-child{
+    display: none;
+  }
+
+  #weeklyWeather .daily-weather:nth-child(6){
+    display: none;
+  }
+
+  #weeklyWeather .daily-weather:nth-child(7){
+    display: none;
+  }
+
 }

@@ -14,30 +14,35 @@
 </head>
 
 <body>
-  <div class="container-fluid animated bounceInDown">
-  <header>
-    <h1 class="mt-4"><strong id="location"></strong></h1>
-  </header>
-  <div class="row mt-3">
-    <div class="col-6">
-      <img id="banana" src="https://preview.ibb.co/iDjDFv/weather_Banana.png" alt="weather_Banana" border="0">
+  <div class="container animated bounceInDown">
+    <header>
+      <h1 class="mt-4"><strong id="location"></strong></h1>
+    </header>
+    <div class="row mt-3">
+      <div class="col-6">
+        <img id="banana" src="https://preview.ibb.co/iDjDFv/weather_Banana.png" alt="weather_Banana" border="0">
+      </div>
+      <div class="col-6">
+        <div id="bubble">
+          <span id="loader">Checking the weather...</span>
+          <span id="weather" class="current">
+            <p>
+              <span id="title" class="hide">Currently:</span><br>
+              <span id="icon"></span>
+              <span id="temp"></span></span>
+              <span id="summary"></span>
+            </p>
+          </span>
+          <button class="btn btn-block btn-sm btn-primary hide" id="forecastToggle">VIEW DAILY</button>
+        </div>
+      </div>
     </div>
-    <div class="col-6">
-      <div id="bubble">
-        <span id="loader">Checking the weather...</span>
-        <span id="weather" class="current">
-          <p>
-            <span id="title" class="hide">Currently:</span><br>
-            <span id="icon"></span>
-            <span id="temp"></span></span>
-            <span id="summary"></span>
-          </p>
-        </span>
-        <button class="btn btn-block btn-sm btn-primary hide" id="forecastToggle">VIEW DAILY</button>
+    <div style="position:absolute;width: 100%; bottom: 20px;left: 0; right: 0; margin: auto;" class="row">
+      <div class="col">
+        <div id="weeklyWeather"></div>
       </div>
     </div>
   </div>
-</div>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js'></script>
 <script src="js/index.js"></script>

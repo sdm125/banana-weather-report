@@ -2,14 +2,22 @@ $(document).ready(function(){
 
   (function(){
 
-    var weekdays = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
-    var currentDate = new Date();
-    var formattedDate = weekdays[currentDate.getDay()] + ' ' + currentDate.getDate() + ' ' + currentDate.getFullYear();
     var coords = {};
-    var weather = {currentTemp: 0,
-                   daily: {max: 0, min: 0},
-                   summary: {current: '', daily: ''},
-                   icon: {current: '', daily: ''}};
+    var weekdays = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
+    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Dec'];
+    var currentDate = new Date();
+    var formattedDate = weekdays[currentDate.getDay()] + ' ' + currentDate.getDate()
+                        + ' ' + currentDate.getFullYear();
+    var currentWeather = {temp: 0, summary: '', icon: ''};
+    var dailyWeatherDetails = {};
+    var weeklyReport = [];
+    var DailyReport = function(weekday, date, temps, summary, icon){
+      this.weekday = weekday
+      this.date = date;
+      this.temps = temps;
+      this.summary = summary;
+      this.icon = icon;
+    };
     var conditions = [{condition: 'clear-day',
                        icon: '<i class="wi wi-day-sunny"></i>'},
                       {condition: 'clear-night',
@@ -31,6 +39,7 @@ $(document).ready(function(){
                       {condition: 'partly-cloudy-night',
                        icon: '<i class="wi wi-night-alt-cloudy"></i>'}];
 
+    /* Check for geolocation support */
     if(navigator.geolocation){
       navigator.geolocation.getCurrentPosition(success);
     }
@@ -38,6 +47,9 @@ $(document).ready(function(){
       console.log('geolocation not supported');
     }
 
+    /*  If supported sends location data here. Assign coords.lat & coords.longitude
+     *  for use in getWeather() and getLocation()
+     */
     function success(position){
       coords.lat = position.coords.latitude;
       coords.long = position.coords.longitude;
@@ -52,37 +64,105 @@ $(document).ready(function(){
         dataType: 'jsonp',
         success: function(weatherData){
           console.log(weatherData);
+
           if($('#loader')) { $('#loader').remove(); }
           if($('#title').hasClass('hide')) {
-            $('#title').removeClass('hide')
+            $('#title').removeClass('hide');
             $('button').removeClass('hide');
           }
-          weather.currentTemp = Math.ceil(weatherData.currently.temperature);
-          weather.daily.max = Math.ceil(weatherData.daily.data[0].apparentTemperatureMax);
-          weather.daily.min = Math.ceil(weatherData.daily.data[0].apparentTemperatureMin);
-          weather.summary.current = weatherData.currently.summary;
-          weather.summary.daily = weatherData.daily.data[0].summary;
-          weather.icon.current = '<i class="wi wi-cloudy"></i>';
-          weather.icon.daily = '<i class="wi wi-cloudy"></i>';
 
+          // Assign current weather data
+          currentWeather.temp = Math.ceil(weatherData.currently.temperature);
+          currentWeather.summary = weatherData.currently.summary;
           $.each(conditions, function(_, c){
-            if(c.condition === weatherData.currently.icon){
-              weather.icon.current = c.icon;
-            }
             if(c.condition === weatherData.daily.icon){
-              weather.icon.daily = c.icon;
+              currentWeather.icon = c.icon;
             }
           });
 
-          $('#icon').html(weather.icon.current + '<br>');
-          $('#temp').html(weather.currentTemp + ' F°<br>');
-          $('#summary').text(weather.summary.current);
+          $('#icon').html(currentWeather.icon + '<br>');
+          $('#temp').html(currentWeather.temp + ' F°<br>');
+          $('#summary').text(currentWeather.summary);
+
+          $.each(weatherData.daily.data, function(num, day){
+            var weekday = num <= 6 ? weekdays[currentDate.getDay() + num] : weekdays[currentDate.getDay()];
+            var month = months[parseInt((new Date(day.time * 1000).toISOString().substring(5, 7))) - 1];
+            var date =  month + ' ' + (new Date(day.time * 1000).toISOString().substring(8, 10)) + ' ' + currentDate.getFullYear();
+            var temps = {high: Math.ceil(day.apparentTemperatureMax),
+                        low: Math.ceil(day.apparentTemperatureMin)};
+            $.each(conditions, function(_, c){
+              if(c.condition === day.icon){
+                day.icon = c.icon;
+              }
+            });
+            weeklyReport[num] = new DailyReport(weekday, date, temps, day.summary, day.icon);
+          });
+
+          dailyWeatherDetails = weeklyReport[0];
+          console.log(weeklyReport);
+
+          $.each(weeklyReport, function(_, dailyReport){
+            $('#weeklyWeather').append('<div class="daily-weather"><strong>' +
+            dailyReport.weekday + '</strong><br>' + dailyReport.icon +
+            '<br><span class="temp-label">high: </span>' + dailyReport.temps.high +
+            '</span><br><span class="temp-label">low: </span>' + dailyReport.temps.low + '</div>');
+          });
+
+          (function(){
+            var daily = $('.daily-weather');
+            $.each(daily, function(i, day){
+              day.addEventListener('click', function(){
+                dailyWeatherDetails = weeklyReport[i];
+                updateDaily();
+              })
+            });
+          })();
         },
+        cache: false,
         error: function(e){
           console.log(e);
         }
       });
     }
+
+    $('#forecastToggle').on('click', function(){
+      if($('#weather').hasClass('current')){
+        updateDaily();
+      }
+      else if($('#weather').hasClass('daily')){
+        $('#forecastToggle').text('VIEW DAILY');
+        $('#title').text('Currently')
+        $('#weather').removeClass('daily').addClass('current');
+        $('#icon').html(currentWeather.icon + '<br>');
+        $('#temp').html(currentWeather.temp + ' F°<br>');
+        $('#summary').text(currentWeather.summary);
+      }
+    });
+
+    var updateDaily = function(){
+      $('#forecastToggle').text('VIEW CURRENT');
+      $('#weather').removeClass('current').addClass('daily');
+      $('#title').text(dailyWeatherDetails.date);
+      $('#icon').html(dailyWeatherDetails.icon + '<br>');
+      $('#temp').html('High ' + dailyWeatherDetails.temps.high + ' F°<br>'
+                             + 'Low ' + dailyWeatherDetails.temps.low + ' F°<br>');
+      $('#summary').text(dailyWeatherDetails.summary);
+    };
+
+    // Toggle fahrenheit & celsius
+    (function(){
+      var toggle = 'f';
+      $('#temp').on('click', function(){
+        if(toggle === 'f'){
+          toggle = 'c';
+          $('#temp').text(Math.ceil((((temp - 32) * 5) / 9)) + ' C°');
+        }
+        else{
+          toggle = 'f';
+          $('#temp').html(temp + ' F°');
+        }
+      });
+    })();
 
     function getLocation(){
       $.ajax({
@@ -99,40 +179,6 @@ $(document).ready(function(){
         }
       });
     }
-
-    (function(){
-      var toggle = 'f';
-      $('#temp').on('click', function(){
-        if(toggle === 'f'){
-          toggle = 'c';
-          $('#temp').text(Math.ceil((((temp - 32) * 5) / 9)) + ' C°');
-        }
-        else{
-          toggle = 'f';
-          $('#temp').html(temp + ' F°');
-        }
-      });
-    })();
-
-    $('#forecastToggle').on('click', function(){
-      if($('#weather').hasClass('current')){
-        $('#forecastToggle').text('VIEW CURRENT');
-        $('#weather').removeClass('current').addClass('daily');
-        $('#title').text(formattedDate);
-        $('#icon').html(weather.icon.daily + '<br>');
-        $('#temp').html('High ' + weather.daily.max + ' F°<br>'
-                               + 'Low ' + weather.daily.min + ' F°<br>');
-        $('#summary').text(weather.summary.daily);
-      }
-      else if($('#weather').hasClass('daily')){
-        $('#forecastToggle').text('VIEW DAILY');
-        $('#title').text('Currently')
-        $('#weather').removeClass('daily').addClass('current');
-        $('#icon').html(weather.icon.current + '<br>');
-        $('#temp').html(weather.currentTemp + ' F°<br>');
-        $('#summary').text(weather.summary.current);
-      }
-    });
 
   })();
 

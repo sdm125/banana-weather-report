@@ -78,22 +78,25 @@ body {
   #banana {
     top: 115px;
   }
-  
+
   #bubble {
     font-size: .9rem;
   }
-  
+
   p {
     margin-bottom: 0;
   }
 }
 
 @media only screen and (max-width: 350px) {
-  #banana {
-    top: 135px;
-    left: 45px;
+  .row {
+    margin-top: 0 !important;
   }
-  
+
+  #banana {
+    left: 100px;
+  }
+
   #bubble {
     font-size: .8rem;
   }

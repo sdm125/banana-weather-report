@@ -25,7 +25,7 @@ $(document).ready(function(){
                       {condition: 'rain',
                        icon: '<i class="wi wi-showers"></i>'},
                       {condition: 'snow',
-                       icon: '<i class="wi "></i>'},
+                       icon: '<i class="wi wi-snow"></i>'},
                       {condition: 'wind',
                        icon: '<i class="wi wi-snow"></i>'},
                       {condition:'fog',
@@ -33,9 +33,9 @@ $(document).ready(function(){
                       {condition:'sleet',
                        icon: '<i class="wi wi-sleet"></i>'},
                       {condition: 'cloudy',
-                       icon: '<i class="wi "></i>'},
+                       icon: '<i class="wi wi-cloudy"></i>'},
                       {condition: 'partly-cloudy-day',
-                       icon: '<i class="wi wi-cloud"></i>'},
+                       icon: '<i class="wi wi-day-cloudy"></i>'},
                       {condition: 'partly-cloudy-night',
                        icon: '<i class="wi wi-night-alt-cloudy"></i>'}];
 

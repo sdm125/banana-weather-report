@@ -27,7 +27,7 @@ $(document).ready(function(){
                       {condition: 'snow',
                        icon: '<i class="wi wi-snow"></i>'},
                       {condition: 'wind',
-                       icon: '<i class="wi wi-snow"></i>'},
+                       icon: '<i class="wi wi-cloudy-windy"></i>'},
                       {condition:'fog',
                        icon:  '<i class="wi wi-fog"></i>'},
                       {condition:'sleet',
@@ -75,7 +75,7 @@ $(document).ready(function(){
           currentWeather.temp = Math.ceil(weatherData.currently.temperature);
           currentWeather.summary = weatherData.currently.summary;
           $.each(conditions, function(_, c){
-            if(c.condition === weatherData.daily.icon){
+            if(c.condition === weatherData.currently.icon){
               currentWeather.icon = c.icon;
             }
           });
@@ -85,7 +85,7 @@ $(document).ready(function(){
           $('#summary').text(currentWeather.summary);
 
           $.each(weatherData.daily.data, function(num, day){
-            var weekday = num <= 6 ? weekdays[currentDate.getDay() + num] : weekdays[currentDate.getDay()];
+            var weekday = num < 6 ? weekdays[currentDate.getDay() + num] : num === 6 ? weekdays[0] : weekdays[1];
             var month = months[parseInt((new Date(day.time * 1000).toISOString().substring(5, 7))) - 1];
             var date =  month + ' ' + (new Date(day.time * 1000).toISOString().substring(8, 10)) + ' ' + currentDate.getFullYear();
             var temps = {high: Math.ceil(day.apparentTemperatureMax),

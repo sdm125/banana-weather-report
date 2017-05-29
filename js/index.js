@@ -84,19 +84,25 @@ $(document).ready(function(){
           $('#temp').html(currentWeather.temp + ' F°<br>');
           $('#summary').text(currentWeather.summary);
 
-          $.each(weatherData.daily.data, function(num, day){
-            var weekday = num < 6 ? weekdays[currentDate.getDay() + num] : num === 6 ? weekdays[0] : weekdays[1];
-            var month = months[parseInt((new Date(day.time * 1000).toISOString().substring(5, 7))) - 1];
-            var date =  month + ' ' + (new Date(day.time * 1000).toISOString().substring(8, 10)) + ' ' + currentDate.getFullYear();
-            var temps = {high: Math.ceil(day.apparentTemperatureMax),
-                        low: Math.ceil(day.apparentTemperatureMin)};
-            $.each(conditions, function(_, c){
-              if(c.condition === day.icon){
-                day.icon = c.icon;
-              }
+          // Build weeklyReport array
+          (function(){
+            var dayCounter = 0;
+            $.each(weatherData.daily.data, function(num, day){
+              dayCounter < weekdays.length - 1 ? dayCounter = (currentDate.getDay() + dayCounter++) : dayCounter = 0;
+              var weekday = weekdays[dayCounter];
+              console.log('currentDate.getDay() + num = ' + (currentDate.getDay() + num));
+              var month = months[parseInt((new Date(day.time * 1000).toISOString().substring(5, 7))) - 1];
+              var date =  weekday + ' ' + month + ' ' + (new Date(day.time * 1000).toISOString().substring(8, 10)) + ' ' + currentDate.getFullYear();
+              var temps = {high: Math.ceil(day.apparentTemperatureMax),
+                          low: Math.ceil(day.apparentTemperatureMin)};
+              $.each(conditions, function(_, c){
+                if(c.condition === day.icon){
+                  day.icon = c.icon;
+                }
+              });
+              weeklyReport[num] = new DailyReport(weekday, date, temps, day.summary, day.icon);
             });
-            weeklyReport[num] = new DailyReport(weekday, date, temps, day.summary, day.icon);
-          });
+          })();
 
           dailyWeatherDetails = weeklyReport[0];
           console.log(weeklyReport);

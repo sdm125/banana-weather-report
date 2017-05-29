@@ -22,6 +22,8 @@ body {
   height: 100%;
 }
 
+/***** Buttons *****/
+
 .btn-primary {
   background-color: yellow;
   border: 1px solid #000;
@@ -43,6 +45,10 @@ body {
   background-color: yellow;
 }
 
+.wi-day-cloudy {
+  margin-top: 3px;
+}
+
 .hide {
   display: none;
 }
@@ -55,10 +61,9 @@ body {
   position: relative;
   width: 100%;
   max-width: 200px;
-  float: right;
-  transform: rotate(-15deg);
-  top: 30px;
-  left: 40px
+  transform: rotate(-30deg);
+  top: 80px;
+  left: 60px
 }
 
 #title {
@@ -67,21 +72,20 @@ body {
 
 #bubble {
 	position: relative;
-  right: 35px;
+  right: 60px;
   width: 100%;
   max-width: 250px;
 	background: yellow;
 	border-radius: .4em;
   font-size: 1.1rem;
   font-weight: bold;
-  float: left;
   padding: 10px;
   border: 2px solid #000;
 }
 
 @media only screen and (max-width: 450px) {
   #banana {
-    top: 75px;
+    top: 125px;
   }
 
   #bubble {
@@ -99,12 +103,17 @@ body {
   }
 
   #banana {
-    top: 100px;
+    top: 150px;
     left: 40px;
   }
 
   #bubble {
     font-size: .8rem;
+    right: 45px;
+  }
+
+  .btn-sm{
+    font-size: .7rem;
   }
 }
 

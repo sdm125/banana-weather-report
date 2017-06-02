@@ -16,8 +16,6 @@ html, body {
 
 body {
   border: 15px solid yellow;
-  display: flex;
-  align-items: center;
 }
 
 .container {
@@ -65,8 +63,7 @@ body {
   max-width: 200px;
   transform: rotate(-30deg);
   top: 80px;
-  left: 60px;
-  float: right;
+  left: 60px
 }
 
 #title {
@@ -74,22 +71,21 @@ body {
 }
 
 #bubble {
-  position: relative;
+	position: relative;
   right: 60px;
   width: 100%;
   max-width: 250px;
-  background: yellow;
-  border-radius: .4em;
+	background: yellow;
+	border-radius: .4em;
   font-size: 1.1rem;
   font-weight: bold;
   padding: 10px;
   border: 2px solid #000;
-  float: left;
 }
 
 @media only screen and (max-width: 450px) {
   #banana {
-    top: 75px;
+    top: 125px;
   }
 
   #bubble {

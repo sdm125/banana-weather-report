@@ -78,6 +78,7 @@ body {
   transform: rotate(-30deg);
   top: 80px;
   left: 60px
+  float: right;
 }
 
 #title {
@@ -95,7 +96,6 @@ body {
   font-weight: bold;
   padding: 10px;
   border: 2px solid #000;
-  float: right;
 }
 
 @media only screen and (max-width: 450px) {

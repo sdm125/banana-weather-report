@@ -16,6 +16,8 @@ html, body {
 
 body {
   border: 15px solid yellow;
+  display: flex;
+  align-items: center;
 }
 
 .container {
@@ -63,7 +65,8 @@ body {
   max-width: 200px;
   transform: rotate(-30deg);
   top: 80px;
-  left: 60px
+  left: 60px;
+  float: right;
 }
 
 #title {
@@ -71,12 +74,12 @@ body {
 }
 
 #bubble {
-	position: relative;
+  position: relative;
   right: 60px;
   width: 100%;
   max-width: 250px;
-	background: yellow;
-	border-radius: .4em;
+  background: yellow;
+  border-radius: .4em;
   font-size: 1.1rem;
   font-weight: bold;
   padding: 10px;
@@ -85,7 +88,7 @@ body {
 
 @media only screen and (max-width: 450px) {
   #banana {
-    top: 125px;
+    top: 75px;
   }
 
   #bubble {
@@ -116,38 +119,6 @@ body {
   .btn-sm{
     font-size: .7rem;
   }
-}
-
-/* creates triangle */
-#bubble:after {
-	content: '';
-	position: absolute;
-	bottom: 0;
-	left: 10%;
-	width: 0;
-	height: 0;
-	border: 20px solid transparent;
-	border-top-color: yellow;
-	border-bottom: 0;
-	border-left: 0;
-	margin-left: -10px;
-	margin-bottom: -18px;
-}
-
-/* creates triangle */
-#bubble:before {
-	content: '';
-	position: absolute;
-	bottom: 0;
-	left: 10%;
-	width: 0;
-	height: 0;
-	border: 22px solid transparent;
-	border-top-color: #000;
-	border-bottom: 0;
-	border-left: 0;
-	margin-left: -12px;
-	margin-bottom: -23px;
 }
 
 .wi {

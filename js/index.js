@@ -86,11 +86,10 @@ $(document).ready(function(){
 
           // Build weeklyReport array
           (function(){
-            var dayCounter = 0;
+            var dayCounter = currentDate.getDay();
             $.each(weatherData.daily.data, function(num, day){
-              dayCounter < weekdays.length - 1 ? dayCounter = (currentDate.getDay() + dayCounter++) : dayCounter = 0;
-              var weekday = weekdays[dayCounter];
-              console.log('currentDate.getDay() + num = ' + (currentDate.getDay() + num));
+              var weekday = weekdays[dayCounter++];
+              if(dayCounter >= weekdays.length) { dayCounter = 0;}
               var month = months[parseInt((new Date(day.time * 1000).toISOString().substring(5, 7))) - 1];
               var date =  weekday + ' ' + month + ' ' + (new Date(day.time * 1000).toISOString().substring(8, 10)) + ' ' + currentDate.getFullYear();
               var temps = {high: Math.ceil(day.apparentTemperatureMax),
@@ -154,21 +153,6 @@ $(document).ready(function(){
                              + 'Low ' + dailyWeatherDetails.temps.low + ' F°<br>');
       $('#summary').text(dailyWeatherDetails.summary);
     };
-
-    // Toggle fahrenheit & celsius
-    (function(){
-      var toggle = 'f';
-      $('#temp').on('click', function(){
-        if(toggle === 'f'){
-          toggle = 'c';
-          $('#temp').text(Math.ceil((((temp - 32) * 5) / 9)) + ' C°');
-        }
-        else{
-          toggle = 'f';
-          $('#temp').html(temp + ' F°');
-        }
-      });
-    })();
 
     function getLocation(){
       $.ajax({

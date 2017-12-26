@@ -1,10 +1,7 @@
 $(document).ready(function(){
-
   (function(){
-
     var coords = {};
     var weekdays = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
-    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
     var currentDate = new Date();
     var formattedDate = weekdays[currentDate.getDay()] + ' ' + currentDate.getDate()
                         + ' ' + currentDate.getFullYear();
@@ -39,12 +36,18 @@ $(document).ready(function(){
                       {condition: 'partly-cloudy-night',
                        icon: '<i class="wi wi-night-alt-cloudy"></i>'}];
 
+    Date.prototype.addDays = function(days) {
+      var dat = new Date(this.valueOf());
+      dat.setDate(dat.getDate() + days);
+      return dat;
+    }
+
     /* Check for geolocation support */
     if(navigator.geolocation){
       navigator.geolocation.getCurrentPosition(success);
     }
     else {
-      console.log('geolocation not supported');
+      alert('location not supported');
     }
 
     /*  If supported sends location data here. Assign coords.lat & coords.longitude
@@ -63,8 +66,6 @@ $(document).ready(function(){
         + coords.lat + ',' + coords.long,
         dataType: 'jsonp',
         success: function(weatherData){
-          console.log(weatherData);
-
           if($('#loader')) { $('#loader').remove(); }
           if($('#title').hasClass('hide')) {
             $('#title').removeClass('hide');
@@ -87,11 +88,11 @@ $(document).ready(function(){
           // Build weeklyReport array
           (function(){
             var dayCounter = currentDate.getDay();
+            var dateCounter = 0;
             $.each(weatherData.daily.data, function(num, day){
               var weekday = weekdays[dayCounter++];
               if(dayCounter >= weekdays.length) { dayCounter = 0;}
-              var month = months[new Date().getMonth() - 1];
-              var date =  weekday + ' ' + month + ' ' + (new Date(day.time * 1000).toISOString().substring(8, 10)) + ' ' + currentDate.getFullYear();
+              var date = new Date();
               var temps = {high: Math.ceil(day.apparentTemperatureMax),
                           low: Math.ceil(day.apparentTemperatureMin)};
               $.each(conditions, function(_, c){
@@ -99,12 +100,11 @@ $(document).ready(function(){
                   day.icon = c.icon;
                 }
               });
-              weeklyReport[num] = new DailyReport(weekday, date, temps, day.summary, day.icon);
+              weeklyReport[num] = new DailyReport(weekday, date.addDays(dateCounter++).toString().substring(0, 15), temps, day.summary, day.icon);
             });
           })();
 
           dailyWeatherDetails = weeklyReport[0];
-          console.log(weeklyReport);
 
           $.each(weeklyReport, function(_, dailyReport){
             $('#weeklyWeather').append('<div class="daily-weather"><strong>' +
@@ -159,7 +159,6 @@ $(document).ready(function(){
         url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + coords.lat + ',' + coords.long + '&key=AIzaSyCaeSa04UTMMMDcXQMEfADLVKqzUYOxWAI',
         dataType: 'json',
         success: function(locationData){
-          console.log(locationData);
           if($('#loader')) { $('#loader').remove(); }
           if($('#current .title').hasClass('hide')) { $('# current.title').removeClass('hide') }
           $('#location').html(locationData.results[2].address_components[0].long_name + ', ' + locationData.results[2].address_components[1].long_name);
@@ -169,7 +168,6 @@ $(document).ready(function(){
         }
       });
     }
-
+    
   })();
-
 });

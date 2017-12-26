@@ -72,12 +72,8 @@ body {
 }
 
 #banana {
-  position: relative;
   width: 100%;
   max-width: 200px;
-  transform: rotate(-30deg);
-  top: 80px;
-  left: 60px;
   float: right;
 }
 
@@ -87,7 +83,6 @@ body {
 
 #bubble {
 	position: relative;
-  right: 60px;
   width: 100%;
   max-width: 250px;
 	background: yellow;
@@ -96,41 +91,6 @@ body {
   font-weight: bold;
   padding: 10px;
   border: 2px solid #000;
-}
-
-@media only screen and (max-width: 450px) {
-  #banana {
-    top: 125px;
-  }
-
-  #bubble {
-    font-size: .9rem;
-  }
-
-  p {
-    margin-bottom: 0;
-    padding: 5px;
-  }
-}
-
-@media only screen and (max-width: 350px) {
-  .row {
-    margin-top: 0 !important;
-  }
-
-  #banana {
-    top: 150px;
-    left: 40px;
-  }
-
-  #bubble {
-    font-size: .8rem;
-    right: 45px;
-  }
-
-  .btn-sm{
-    font-size: .7rem;
-  }
 }
 
 .wi {
@@ -187,7 +147,6 @@ body {
 }
 
 @media only screen and (max-width: 500px) {
-
   .daily-weather {
     width: 19.5%;
   }
@@ -203,5 +162,4 @@ body {
   #weeklyWeather .daily-weather:nth-child(7){
     display: none;
   }
-
 }

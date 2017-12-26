@@ -4,7 +4,7 @@ $(document).ready(function(){
 
     var coords = {};
     var weekdays = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
-    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Nov', 'Dec'];
+    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
     var currentDate = new Date();
     var formattedDate = weekdays[currentDate.getDay()] + ' ' + currentDate.getDate()
                         + ' ' + currentDate.getFullYear();

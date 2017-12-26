@@ -90,7 +90,7 @@ $(document).ready(function(){
             $.each(weatherData.daily.data, function(num, day){
               var weekday = weekdays[dayCounter++];
               if(dayCounter >= weekdays.length) { dayCounter = 0;}
-              var month = months[parseInt((new Date(day.time * 1000).toISOString().substring(5, 7))) - 1];
+              var month = months[new Date().getMonth() - 1];
               var date =  weekday + ' ' + month + ' ' + (new Date(day.time * 1000).toISOString().substring(8, 10)) + ' ' + currentDate.getFullYear();
               var temps = {high: Math.ceil(day.apparentTemperatureMax),
                           low: Math.ceil(day.apparentTemperatureMin)};

@@ -3,8 +3,6 @@ $(document).ready(function(){
     var coords = {};
     var weekdays = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
     var currentDate = new Date();
-    var formattedDate = weekdays[currentDate.getDay()] + ' ' + currentDate.getDate()
-                        + ' ' + currentDate.getFullYear();
     var currentWeather = {temp: 0, summary: '', icon: ''};
     var dailyWeatherDetails = {};
     var weeklyReport = [];
@@ -168,6 +166,6 @@ $(document).ready(function(){
         }
       });
     }
-    
+
   })();
 });

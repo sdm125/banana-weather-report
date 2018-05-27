@@ -6,13 +6,6 @@ $(document).ready(function(){
     var currentWeather = {temp: 0, summary: '', icon: ''};
     var dailyWeatherDetails = {};
     var weeklyReport = [];
-    var DailyReport = function(weekday, date, temps, summary, icon){
-      this.weekday = weekday
-      this.date = date;
-      this.temps = temps;
-      this.summary = summary;
-      this.icon = icon;
-    };
     var conditions = [{condition: 'clear-day',
                        icon: '<i class="wi wi-day-sunny"></i>'},
                       {condition: 'clear-night',
@@ -87,18 +80,29 @@ $(document).ready(function(){
           (function(){
             var dayCounter = currentDate.getDay();
             var dateCounter = 0;
+            var weekday;
+            var date;
+            var temps
             $.each(weatherData.daily.data, function(num, day){
-              var weekday = weekdays[dayCounter++];
+              weekday = weekdays[dayCounter++];
               if(dayCounter >= weekdays.length) { dayCounter = 0;}
-              var date = new Date();
-              var temps = {high: Math.ceil(day.apparentTemperatureMax),
+              date = new Date();
+              temps = {high: Math.ceil(day.apparentTemperatureMax),
                           low: Math.ceil(day.apparentTemperatureMin)};
+
               $.each(conditions, function(_, c){
                 if(c.condition === day.icon){
                   day.icon = c.icon;
                 }
               });
-              weeklyReport[num] = new DailyReport(weekday, date.addDays(dateCounter++).toString().substring(0, 15), temps, day.summary, day.icon);
+
+              weeklyReport[num] = {
+                  weekday: weekday,
+                  date: date.addDays(dateCounter++).toString().substring(0, 15),
+                  temps: temps,
+                  summary: day.summary,
+                  icon: day.icon
+              };
             });
           })();
 

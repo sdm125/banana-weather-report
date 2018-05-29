@@ -1,0 +1,84 @@
+<!DOCTYPE css>
+header {
+    font-family: arial;
+    font-size: 18px;
+    width: 960px;
+    height: 25px;
+    color: #ebebeb;
+    background:#777;
+
+
+}
+
+
+body {
+    background: #777;
+    font-family: HelveticaNeue;
+    color: #777;
+    width: 960px;
+    font-size 18px;
+
+}
+
+Nav {
+    width: 960px;
+    height: 50px;
+    background: #ebebeb;
+    font-color: #777
+}
+
+.column {
+    float: left;
+    width: 50%
+}
+.column {
+    float: right;
+    width: 50%
+}
+
+
+Article {
+    color: #ebebeb;
+    width: 495px;
+    background: #777;
+    height: 250px;
+
+}
+
+h3 {
+    color: #777;
+    background: #ebebeb;
+}
+
+p {
+    color: #ebebeb;
+    background: #777;
+
+}
+
+Section {
+    color: #777;
+    width: 495px;
+    height: 495px;
+    background: #ebebeb;
+    border-width: 25px;
+    border-style: solid;
+
+}
+
+Aside {
+    font-color: #777;
+    width: 425px;
+    height: 450px;
+    background: #ebebeb;
+    float: right;
+    clear: right;
+
+}
+Footer {
+    font-color: #777;
+    width: 960px;
+    height: 50px;
+    background: #ebebeb;
+
+}

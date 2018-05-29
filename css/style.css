@@ -13,12 +13,12 @@ html, body {
   min-width: 290px;
 }
 
-body {
-  border: 15px solid yellow;
-}
-
-.container {
+main {
   height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border: 15px solid yellow;
 }
 
 #landscape-cover {
@@ -66,6 +66,10 @@ body {
   display: none;
 }
 
+header h1 {
+  margin-bottom: 2rem;
+}
+
 .temp {
   cursor: pointer;
 }
@@ -98,7 +102,7 @@ body {
 }
 
 #temp {
-  font-size: 2rem;
+  font-size: 1.75rem;
 }
 
 .wi {
@@ -146,11 +150,19 @@ body {
   .temp-label {
     display: none;
   }
+
+  #icon i {
+    font-size: 2.5rem;
+  }
+
+  #temp {
+    font-size: 1.25rem;
+  }
 }
 
 @media only screen and (max-width: 570px) {
   header h1 {
-    font-size: 6vw;
+    font-size: 8vw;
   }
 }
 
@@ -169,5 +181,23 @@ body {
 
   #weeklyWeather .daily-weather:nth-child(7){
     display: none;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  header h1 {
+    margin: 0 !important;
+  }
+
+  #weeklyWeatherContainer {
+    margin-top: 0 !important;
+  }
+
+  #summary {
+    display: none !important;
+  }
+
+  #forecastToggle {
+    font-size: .75rem;
   }
 }
